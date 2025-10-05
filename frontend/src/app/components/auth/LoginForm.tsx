@@ -1,0 +1,269 @@
+// app/component/auth/LoginForm.tsx
+import React, { useState } from 'react';
+
+// Define the props for the LoginForm component (if any are needed in the future)
+interface LoginFormProps {
+  // Example: onLoginSuccess?: (token: string) => void;
+}
+
+// LoginForm functional component
+const LoginForm: React.FC<LoginFormProps> = () => {
+  // State variables to hold username and password input values
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+
+  // Handle form submission
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); // Prevent default form submission behavior
+
+    // In a real application, you would send these credentials to your backend for authentication.
+    console.log('Login attempt:', { username, password });
+
+    // Example of a fetch call to a PHP backend API (replace with your actual API endpoint)
+    // const loginApiUrl = '/api/login.php'; // Assuming your PHP backend is at /api/login.php
+    // fetch(loginApiUrl, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({ username, password }),
+    // })
+    // .then(response => {
+    //   if (!response.ok) {
+    //     throw new Error(`HTTP error! status: ${response.status}`);
+    //   }
+    //   return response.json();
+    // })
+    // .then(data => {
+    //   console.log('Login successful:', data);
+    //   // Here you would handle successful login, e.g., store a token, redirect the user
+    //   // if (props.onLoginSuccess) {
+    //   //   props.onLoginSuccess(data.token);
+    //   // }
+    // })
+    // .catch(error => {
+    //   console.error('Login failed:', error);
+    //   // Handle login errors, e.g., display an error message to the user
+    //   alert('Login failed. Please check your credentials.');
+    // });
+
+    // Using alert for demonstration purposes as per previous instruction
+    alert('Login functionality is for demonstration only. Check console for input values.');
+  };
+
+  return (
+    // The main container for the entire page, providing the background grid effect
+    // and centering the login form.
+    <section className="hacker-login-section">
+      {/* Container for the login form itself */}
+      <div className="form-box">
+        <div className="form-value">
+          <form onSubmit={handleSubmit}>
+            <h2>SIGN IN</h2>
+            {/* Username input field */}
+            <div className="inputbox">
+              <input
+                type="text"
+                required
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
+            {/* Password input field */}
+            <div className="inputbox">
+              <input
+                type="password"
+                required
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            {/* Links for Forgot Password and Signup */}
+            <div className="links">
+              <a href="#" onClick={(e) => { e.preventDefault(); alert('Forgot Password functionality not implemented.'); }}>Forgot Password</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); alert('Signup functionality not implemented.'); }}>Signup</a>
+            </div>
+            {/* Login button */}
+            <button type="submit" className="login-button">Login</button>
+          </form>
+        </div>
+      </div>
+
+      {/* Custom CSS styles for the component */}
+      <style>{`
+        /* Global styles for the body and HTML */
+        html, body {
+          margin: 0;
+          padding: 0;
+          height: 100%;
+          font-family: 'Inter', sans-serif; /* Using Inter font as per instructions */
+          overflow: hidden; /* Prevent scrollbars due to ::before pseudo-element */
+        }
+
+        /* Section styles for the background and centering */
+        .hacker-login-section {
+          position: relative;
+          width: 100vw; /* Full viewport width */
+          height: 100vh; /* Full viewport height */
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 20px; /* Gap between elements, though here it's mainly for centering */
+          flex-wrap: wrap;
+          overflow: hidden; /* Hide overflow for the grid effect */
+          background-color: #000; /* Black background */
+        }
+
+        /* Pseudo-element for the grid background effect */
+        .hacker-login-section::before {
+          content: '';
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: repeating-linear-gradient(
+            to right,
+            #0f0, /* Green lines */
+            #0f0 2px, /* Line thickness */
+            transparent 2px, /* Transparent space */
+            transparent 20px /* Space between lines */
+          ),
+          repeating-linear-gradient(
+            to bottom,
+            #0f0,
+            #0f0 2px,
+            transparent 2px,
+            transparent 20px
+          );
+          background-size: 20px 20px; /* Size of each grid cell */
+          opacity: 0.1; /* Make the grid subtle */
+          z-index: 0; /* Ensure it's behind the form */
+        }
+
+        /* Styling for the form container */
+        .form-box {
+          position: relative;
+          width: 380px; /* Fixed width for the form */
+          height: 420px; /* Fixed height for the form */
+          background: #000; /* Black background for the form box */
+          border: 2px solid #0f0; /* Green border */
+          border-radius: 20px; /* Rounded corners */
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 1; /* Ensure form is above the grid */
+          box-shadow: 0 0 15px rgba(0, 255, 0, 0.5); /* Green glow effect */
+        }
+
+        /* Styling for the content inside the form box */
+        .form-value {
+          width: 100%;
+          padding: 40px;
+          box-sizing: border-box; /* Include padding in width calculation */
+        }
+
+        /* Heading style */
+        h2 {
+          font-size: 2em;
+          color: #0f0; /* Green text */
+          text-align: center;
+          margin-bottom: 30px;
+          text-shadow: 0 0 5px #0f0; /* Green text shadow */
+        }
+
+        /* Input field container */
+        .inputbox {
+          position: relative;
+          margin: 30px 0;
+          width: 100%;
+          border-bottom: 2px solid #0f0; /* Green bottom border */
+        }
+
+        /* Input field styling */
+        .inputbox input {
+          width: calc(100% - 20px); /* Adjust width for padding */
+          height: 40px;
+          background: transparent;
+          border: none;
+          outline: none;
+          font-size: 1em;
+          padding: 0 10px;
+          color: #fff; /* White text for input */
+          border-radius: 5px; /* Rounded corners for inputs */
+        }
+
+        /* Placeholder text color */
+        .inputbox input::placeholder {
+          color: rgba(255, 255, 255, 0.7); /* Lighter white for placeholder */
+        }
+
+        /* Focus effect for input fields */
+        .inputbox input:focus {
+          box-shadow: 0 0 8px rgba(0, 255, 0, 0.7); /* Green glow on focus */
+        }
+
+        /* Links container */
+        .links {
+          margin: -15px 0 15px;
+          font-size: 0.9em;
+          color: #fff;
+          display: flex;
+          justify-content: space-between;
+        }
+
+        /* Link styling */
+        .links a {
+          color: #0f0; /* Green links */
+          text-decoration: none;
+          transition: color 0.3s ease;
+        }
+
+        .links a:hover {
+          color: #00ff00; /* Brighter green on hover */
+          text-decoration: underline;
+        }
+
+        /* Login button styling */
+        .login-button {
+          width: 100%;
+          height: 45px;
+          border-radius: 10px; /* Rounded corners */
+          background: #0f0; /* Green background */
+          border: none;
+          outline: none;
+          cursor: pointer;
+          font-size: 1.1em;
+          font-weight: 600;
+          color: #000; /* Black text on button */
+          transition: background 0.3s ease, box-shadow 0.3s ease;
+          box-shadow: 0 0 10px rgba(0, 255, 0, 0.5); /* Initial glow */
+        }
+
+        .login-button:hover {
+          background: #00ff00; /* Brighter green on hover */
+          box-shadow: 0 0 20px rgba(0, 255, 0, 0.8); /* Stronger glow on hover */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+          .form-box {
+            width: 90%; /* Adjust width for smaller screens */
+            height: auto; /* Adjust height automatically */
+            padding: 20px 0;
+          }
+
+          .form-value {
+            padding: 20px; /* Reduce padding */
+          }
+
+          h2 {
+            font-size: 1.8em; /* Smaller heading */
+          }
+        }
+      `}</style>
+    </section>
+  );
+};
+
+export default LoginForm;
